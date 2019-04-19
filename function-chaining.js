@@ -1,4 +1,4 @@
-var results = []; // store the result of functions to print
+let results = []; // store the result of functions to print
 
 /*
  * CALCULATOR FUNCTION
@@ -33,9 +33,37 @@ function calculator(initValue) {
  * TEST CASES:
  */
 // result = calculator(3); //3
-results[0] = calculator(3).plus(1).minus(2).math(); //4
-results[1] = calculator(3).plus(1).minus(2).multiply(10).math(); //20
+results.push(
+  calculator(3).plus(1).minus(2).math(), //4
+  calculator(3).plus(1).minus(2).multiply(10).math() //20
+);
 
+/*
+ * MODERNIZE CALCULATOR FUNCTION WHICH MODIFY THE GLOBAL OBJECT (CONTEXT) WINDOW
+ */
+function calculator2(initValue) {
+    this.result = initValue;
+    this.plus = function (value) {
+        this.result += value;
+        return this;
+    };
+    this.minus = function (value) {
+        this.result -= value;
+        return this;
+    };
+    this.math = function () {
+        return this.result;
+    };
+    return this;
+}
+results.push(
+  calculator2(34).plus(26).minus(1).math()
+);
+
+
+/*
+ * Show results
+ */
 function showResults(results) {
     for(var i = 0; i < results.length; i++ ) {
         console.log(results[i]);
