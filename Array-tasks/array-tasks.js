@@ -5,13 +5,26 @@
  */
 
 
-let arr = [2,5,7,10];
-let arrSum = 0;
+let arr = [5,5,7,10];
+console.log('Arr: ', arr);
+
 function sumArr(arr) {
-  for(let i = 0; i < arr.length; i++) {
-    arrSum += arr[i];
+  this.sum = 0;
+  this.i = 0;
+  for(this.i; this.i < arr.length; this.i++) {
+    this.sum += arr[i];
   }
+  return this.sum;
 }
 
-sumArr(arr);
-console.log('arrSum: ', arrSum);
+console.log('sumArr through "for" loop: ', sumArr(arr));
+
+
+// Right way
+function sumArr2(arr) {
+  return arr.reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue;
+  });
+}
+
+console.log(`sumArr [${[2,6,1,9]}] by reducer: `, sumArr2([2,6,1,9])); // 18
