@@ -33,3 +33,13 @@ function add3(x) {
 
 console.log(add3(2)(3)(10)(5)()); //20
 
+// By arrow functions:
+const add = x => y => {
+    if(y === 'finish') {
+        return x;
+    }
+    x += y;
+    return add(x);
+};
+
+console.log('add function:', add(24)(65)(11)('finish')); //100

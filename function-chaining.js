@@ -8,7 +8,7 @@ let results = []; // store the result of functions to print
  * calculator(3).plus(1).minus(2).math(); // 4
  */
 function calculator(initValue) {
-    var calculatorObject = {
+    let calculatorObject = {
         result: initValue,
         plus: function (value) {
             this.result += value;
