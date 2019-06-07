@@ -28,3 +28,51 @@ function sumArr2(arr) {
 }
 
 console.log(`sumArr [${[2,6,1,9]}] by reducer: `, sumArr2([2,6,1,9])); // 18
+
+
+// Play:
+const arr1 = [12, 251, 215, 25];
+const arr2 = ['Orange', 'Kiwi', 'Apple', 'Grapes'];
+
+const listOfFruits = arr2.join(', ');
+
+console.log('Jordan loves: ', listOfFruits + '.');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
