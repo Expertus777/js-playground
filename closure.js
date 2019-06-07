@@ -15,9 +15,13 @@ for (var i = 0; i < arr.length; i++) {
 // 4: undefined
 
 
-// Solution 1: change var i to let i, let is block scoped!
+// Solution 1: change var i to let i, let is block scoped! // На каждой итерации будет область видимости с разными значениями i,
+// то-есть в данном случае i работает как замыкание.
 console.log('setTimeout in for loop: ');
 for (let i = 0; i < arr.length; i++) {
+  // [[Scope]] =  {i: 0} - на первом шаге
+  // [[Scope]] =  {i: 1} - на втором шаге создастся новый скоуп и функция из тайм аута будет обращатся к тому скоупу
+  // в котором она создана
   setTimeout(function () {
     // console.log(`${i}: ${arr[i]}`);
     console.log(i, arr[i]);
@@ -34,8 +38,10 @@ for (let i = 0; i < arr.length; i++) {
 console.log('setTimeout in for loop: ');
 for (var i = 0; i < arr.length; i++) {
   setTimeout(function (x) {
+    // Lexical Environment: {x = i => 0}
     // console.log(`${i}: ${arr[i]}`);
     return function() {
+      // Lexical Environment {}
       console.log('pass i to function arguments: ', x, arr[x]);
     }
   }(i), 2000)
