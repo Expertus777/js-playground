@@ -1,0 +1,23 @@
+{
+  "name": "js-playground",
+  "version": "1.0.0",
+  "description": "JS-PLAYGROUND",
+  "main": "call-apply-bind.js",
+  "scripts": {
+    "test": "run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RuslanBehun/js-playground.git"
+  },
+  "keywords": [
+    "js",
+    "play"
+  ],
+  "author": "Ruslan Behun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RuslanBehun/js-playground/issues"
+  },
+  "homepage": "https://github.com/RuslanBehun/js-playground#readme"
+}
