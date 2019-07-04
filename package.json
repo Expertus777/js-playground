@@ -2,9 +2,10 @@
   "name": "js-playground",
   "version": "1.0.0",
   "description": "JS-PLAYGROUND",
-  "main": "call-apply-bind.js",
+  "private": "true",
   "scripts": {
-    "test": "run test"
+    "test": "run test",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/RuslanBehun/js-playground/issues"
   },
-  "homepage": "https://github.com/RuslanBehun/js-playground#readme"
+  "homepage": "https://github.com/RuslanBehun/js-playground#readme",
+  "devDependencies": {
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
 }
