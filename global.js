@@ -7,8 +7,10 @@ function BG() {
 }
 
 window.onload = function() {
-  document.querySelector('#setRedBgBtn').addEventListener('click', () => {
-    document.body.style.background = '#ffcccb'
-  });
+  if(document.querySelector('#setRedBgBtn')) {
+    document.querySelector('#setRedBgBtn').addEventListener('click', () => {
+      document.body.style.background = '#ffcccb'
+    });
+  }
 };
 
