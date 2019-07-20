@@ -1,0 +1,33 @@
+{
+  "name": "js-playground",
+  "version": "1.0.0",
+  "description": "JS-PLAYGROUND",
+  "private": "true",
+  "scripts": {
+    "test": "run test",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RuslanBehun/js-playground.git"
+  },
+  "keywords": [
+    "js",
+    "play"
+  ],
+  "author": "Ruslan Behun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RuslanBehun/js-playground/issues"
+  },
+  "homepage": "https://github.com/RuslanBehun/js-playground#readme",
+  "devDependencies": {
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.13"
+  }
+}
