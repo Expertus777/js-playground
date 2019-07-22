@@ -1,5 +1,5 @@
-const { fromEvent, of, interval } = rxjs;
-const { map, filter } = rxjs.operators;
+const { fromEvent, of, interval, empty } = rxjs;
+const { map, filter, switchMap, merge, scan, tap } = rxjs.operators;
 // const { map, filter } = rxjs.operators;
 
 const obsButton = document.getElementById('obs-btn');
@@ -32,6 +32,10 @@ btnSubscription.unsubscribe();
  *
  */
 
+// Sources:
+const documentClick$ = fromEvent(document, 'click'); // Observable - click event on document
+const interval_1s$ = interval(1000); // Observable - numbers each second
+
 /*
  * 'of'
  * Allows you to deliver values in a sequence
@@ -39,16 +43,16 @@ btnSubscription.unsubscribe();
  * of(1, 2, 3) In this case it will emit 1,2,3 in order
  */
 
-const dataSource = of(1, 2, 3, 5, 10); // create the stream of values: type number in this case
+const dataSource$ = of(1, 2, 3, 5, 10); // create the stream of values: type number in this case
 
-dataSource.pipe(
+dataSource$.pipe(
     // multiple each value in 2
     map(value => value * 2),
     filter(value => value > 6)
 ).subscribe(value => console.log('value: ', value));
 
 // I know:
-// do (tap), of, interval
+// do (tap), of, interval, merge, empty, scan
 
 // Need to learn:
 // SwitchMap, MergeMap, forkJoin,
@@ -57,12 +61,39 @@ dataSource.pipe(
 
 // 1. interval
 
-const source = interval(100);
+/*const source = interval(100);
 const subscribe = source.subscribe(val => console.log('val', val));
 
 setTimeout(() => {
     subscribe.unsubscribe();
-}, 3100);
+}, 3100);*/
+
+// 2. merge
+
+// 2.1 merge as the static method
+/*merge(
+    documentClick$, interval_1s$
+).subscribe(event => console.log(event));*/
+
+// 2.2 merge as instance method
+// documentClick$.pipe(merge(interval_1s$)).subscribe(console.log);
+
+
+// 3. empty
+/*empty().subscribe({
+    next: () => console.log('Next'),
+    complete: () => console.log('Complete Empty observable!')
+});*/
+
+// 4. scan
+// scan - create state
+
+interval_1s$.pipe(
+    tap(console.log),
+    scan((acc, currValue) => {
+        return acc + currValue;
+    })
+).subscribe(console.log);
 
 
 /*
@@ -78,83 +109,22 @@ setTimeout(() => {
 //     )
 //     .subscribe(console.log);
 
+// Examples:
 
-function generateField() {
-    let field = document.createElement('div');
-    let clientHeight = document.documentElement.clientHeight;
-    let clientWidth = document.documentElement.clientWidth;
 
-    // let fieldHeight = clientHeight - 300;
-    // let fieldWidth = clientWidth - 200;
-    let fieldHeight = clientHeight;
-    let fieldWidth = clientWidth;
+// 1. Restart interval on every click
 
-    field.setAttribute('id', 'play-field');
-    field.style.height = fieldHeight + 'px';
-    field.style.width = fieldWidth + 'px';
-    // field.style.border = '1px dashed black';
-    field.style.background = 'white';
-    field.style.position = 'absolute';
-    field.style.top = clientHeight/2 - fieldHeight/2 + 'px';
-    console.log('element.style.top: ', field.style.top);
-    field.style.left = clientWidth/2 - fieldWidth/2 + 'px';
+// Just subscribe to each observable individually
+// documentClick$.subscribe(event => console.log(Object.prototype.toString.call(event)));
+// interval_1s$.subscribe(event => console.log(event));
 
-    document.body.appendChild(field);
+// Now we want to restart timer on each click event
+// For that we can use switchMap!
 
-    return {
-        height: fieldHeight,
-        width: fieldWidth
-    };
-}
+documentClick$.pipe(
+    switchMap(() => interval_1s$)
+).subscribe(event => console.log(event));
 
-let field = generateField();
+// 2. Countdown timer with pause and resume
 
-function generateSquareElement(field) {
-    let element = document.createElement('div');
-    let fieldHeight = field.height;
-    let fieldWidth = field.width;
-
-    let elementHeight = Math.floor(Math.random() * fieldHeight + 1) / 2;
-    let elementWidth = Math.floor(Math.random() * fieldWidth + 1) / 2;
-
-    element.style.height = elementHeight + 'px';
-    element.style.width = elementWidth + 'px';
-
-    let color = 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.5)';
-    // element.style.background = 'rgba(255, 0, 0, 0.5)';
-    element.style.background = color;
-    // element.style.border = '2px solid yellow';
-
-    element.style.position = 'absolute';
-
-    // calculate figure vertical position
-    let elementVerticalPosition = Math.floor(Math.random() * fieldHeight + 1);
-    if (elementVerticalPosition + elementHeight > fieldHeight) {
-        element.style.bottom = fieldHeight - elementVerticalPosition + 'px';
-    } else {
-        element.style.top = elementVerticalPosition + 'px';
-    }
-
-    // calculate figure horizontal position
-    let elementHorizontalPosition = Math.floor(Math.random() * fieldWidth + 1);
-    if (elementHorizontalPosition + elementWidth > fieldWidth) {
-        element.style.right = fieldWidth - elementHorizontalPosition + 'px';
-    } else {
-        element.style.left = elementHorizontalPosition + 'px';
-    }
-    return element;
-}
-
-function appendFigure() {
-    let fieldElement = document.querySelector('#play-field');
-    fieldElement.appendChild(generateSquareElement(field));
-}
-
-let iterator = 0;
-while (iterator < 3000) {
-    setTimeout(() => {
-        appendFigure();
-    }, 10 * iterator);
-    iterator++;
-}
 

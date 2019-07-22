@@ -1,4 +1,4 @@
-let promise = new Promise((resolve, reject) => {
+/*let promise = new Promise((resolve, reject) => {
   let startTime = new Date().getTime();
   setTimeout(() => {
     let finishTime = new Date().getTime();
@@ -10,7 +10,7 @@ let promise = new Promise((resolve, reject) => {
 promise.then(
   (data) => {console.log(data)},
   (error) => {console.log(error)}
-  );
+  );*/
 
 /*let counter = 0;
 console.log(counter);
