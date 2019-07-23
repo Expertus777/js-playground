@@ -1,5 +1,5 @@
 const { fromEvent, of, interval, empty } = rxjs;
-const { map, filter, switchMap, merge, scan, tap } = rxjs.operators;
+const { map, filter, switchMap, merge, scan, tap, takeWhile, startWith, mapTo } = rxjs.operators;
 // const { map, filter } = rxjs.operators;
 
 const obsButton = document.getElementById('obs-btn');
@@ -85,15 +85,17 @@ setTimeout(() => {
     complete: () => console.log('Complete Empty observable!')
 });*/
 
-// 4. scan
-// scan - create state
+// 4. scan // 5. takeWhile
+// scan - create state // takeWhile - emit values until provided expression is false
 
-interval_1s$.pipe(
+/*interval_1s$.pipe(
     tap(console.log),
     scan((acc, currValue) => {
         return acc + currValue;
-    })
-).subscribe(console.log);
+    }),
+    takeWhile(value => value < 28, true),
+    startWith(-3,-2,-1)
+).subscribe(console.log);*/
 
 
 /*
@@ -121,10 +123,64 @@ interval_1s$.pipe(
 // Now we want to restart timer on each click event
 // For that we can use switchMap!
 
-documentClick$.pipe(
-    switchMap(() => interval_1s$)
-).subscribe(event => console.log(event));
+/*documentClick$.pipe(
+    switchMap(() => interval_1s$),
+    mapTo('Hello!')
+).subscribe(event => console.log(event));*/
+
+// Sub function:
+    // mapTo - emits the given constant value on the output Observable every time the source Observable emits a value
 
 // 2. Countdown timer with pause and resume
 
+const COUNTDOWN_TIME = 10;
+
+// elements reference:
+const startButton = document.getElementById('start-btn');
+const stopButton = document.getElementById('stop-btn');
+const restartButton = document.getElementById('restart-btn');
+
+const timeEl = document.querySelector('.app-counter > .number');
+
+// observables:
+const start$ = fromEvent(startButton, 'click').pipe(mapTo('start'));
+const stop$ = fromEvent(stopButton, 'click').pipe(mapTo('stop'));
+const restart$ = fromEvent(restartButton, 'click').pipe(mapTo('restart'));
+
+/*interval_1s$
+    .pipe(
+        takeWhile(() => {
+            let stop = true;
+            let subs = stop$.subscribe((value) => value);
+            console.log(stop, subs);
+            return stop;
+        })
+    )
+    .subscribe(time => timeEl.innerHTML = time);*/
+
+let counter = 'Press START';
+rxjs.merge(start$,stop$, restart$).subscribe(
+    (value) => {
+        switch (value) {
+            case 'start':
+                counter = 0;
+                interval_1s$.subscribe(time => timeEl.innerHTML = time);
+                // let timeSubscription = interval_1s$.subscribe(time => timeEl.innerHTML = time);
+                break;
+            case 'stop':
+                // counter = 0;
+                // test.unsubscribe();
+        }
+    }
+);
+
+timeEl.innerHTML = String(counter);
+
+/*start$.subscribe(() => null);
+
+stop$.subscribe(() => null);
+
+restart$.pipe(
+    switchMap(() => interval_1s$)
+).subscribe(time => timeEl.innerHTML = time);*/
 
