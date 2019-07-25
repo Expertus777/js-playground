@@ -1,5 +1,5 @@
 const { fromEvent, of, interval, empty } = rxjs;
-const { map, filter, switchMap, merge, scan, tap, takeWhile, startWith, mapTo } = rxjs.operators;
+const { map, filter, switchMap, mergeMap, merge, scan, tap, takeWhile, startWith, mapTo } = rxjs.operators;
 // const { map, filter } = rxjs.operators;
 
 const obsButton = document.getElementById('obs-btn');
@@ -52,7 +52,7 @@ dataSource$.pipe(
 ).subscribe(value => console.log('value: ', value));
 
 // I know:
-// do (tap), of, interval, merge, empty, scan
+// do (tap), of, interval, merge, empty, scan, mapTo
 
 // Need to learn:
 // SwitchMap, MergeMap, forkJoin,
@@ -183,4 +183,45 @@ stop$.subscribe(() => null);
 restart$.pipe(
     switchMap(() => interval_1s$)
 ).subscribe(time => timeEl.innerHTML = time);*/
+
+/*
+ * 1. mergeMap
+ *
+ * on every emission of source observable create the new one
+ * For example save input value on each input - most common case
+ */
+
+// Examples:
+
+// 1. mergeMap with observable
+
+let string$ = of('Hello');
+
+// now let's map to inner observable and flatten
+string$.pipe(
+    mergeMap(stringValue => {
+        return of(`${stringValue} World!`)
+    })
+).subscribe(
+    (string) => console.log('$$$ mergeMap: ', string)
+);
+
+
+//mergeMap with promise
+const mergeMapCreatePromiseWithAssignValue = val => new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(`${val} World From Promise resolve`);
+        reject(`${val} World From Promise reject`);
+    }, 4000);
+}).then(
+    (data)=>{
+        console.log(data)
+    },
+    (error) => {
+        console.log(data)
+    }
+);
+console.log('mergeMapWithPromise: ', mergeMapCreatePromiseWithAssignValue('Hello'));
+
+
 
