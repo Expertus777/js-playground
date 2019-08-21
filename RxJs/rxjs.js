@@ -223,5 +223,10 @@ const mergeMapCreatePromiseWithAssignValue = val => new Promise((resolve, reject
 );
 console.log('mergeMapWithPromise: ', mergeMapCreatePromiseWithAssignValue('Hello'));
 
+// Example 3: mergeMap with resultSelector:
+
+let congrats$ = of('Привет', 'Hi', 'Hola');
+
+
 
 
