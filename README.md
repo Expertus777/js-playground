@@ -1,8 +1,11 @@
-# js-playground
+**JS PLAYGROUND**
+
 Instractions:
 
-Run build
-npm run build
+1. Run build
 
-Compile .sass
-sass --watch style.scss
+`npm run build`
+
+2. Compile .sass
+
+`sass --watch style.scss`
