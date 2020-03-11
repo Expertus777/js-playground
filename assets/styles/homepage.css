@@ -1,7 +1,6 @@
 h1 {
   text-align: center;
-  margin: 25px 0 35px;
-}
+  margin: 25px 0 35px; }
 
 .tile {
   width: calc(100% / 3 - 30px);
@@ -12,10 +11,10 @@ h1 {
   font-weight: bold;
   float: left;
   margin: 15px;
-  color: #212529;
-  &:hover {
+  color: #212529; }
+  .tile:hover {
     color: coral;
     border-color: coral;
-    text-decoration: none;
-  }
-}
+    text-decoration: none; }
+
+/*# sourceMappingURL=homepage.css.map */
