@@ -1,21 +1,3 @@
-h1 {
-  text-align: center;
-  margin: 25px 0 35px; }
 
-.tile {
-  width: calc(100% / 3 - 30px);
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding: 50px 20px;
-  text-align: center;
-  font-weight: bold;
-  float: left;
-  margin: 15px;
-  color: #212529; }
-  .tile:hover {
-    color: coral;
-    border-color: coral;
-    text-decoration: none;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
 
 /*# sourceMappingURL=homepage.css.map */
