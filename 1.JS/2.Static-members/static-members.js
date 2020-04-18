@@ -33,9 +33,9 @@ class Circle {
 }
 
 let circle1 = new Circle(5);
-circle1.radius = 20;
+circle1.radius = 120;
 console.log(circle1);
-circle1.color = 'green';
+circle1.color = 'purple';
 console.log(circle1);
 circle1.color;
 
