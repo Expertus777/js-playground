@@ -1,3 +1,8 @@
+body {
+  background: rgb(43,43,43);
+  color: wheat;
+}
+
 h1 {
   text-align: center;
   margin: 25px 0 35px;
@@ -19,4 +24,60 @@ h1 {
     text-decoration: none;
     box-shadow: 0 5px 20px rgba(0,0,0,.1);
   }
+}
+
+
+.car {
+  width: 325px;
+  height: 200px;
+  position: relative;
+  margin-left: 100px;
+  display: inline-block;
+  margin-right: 100px;
+  div {
+    border: 2px solid red;
+    background: white;
+    position: absolute;
+  }
+  .front {
+    height: 50px;
+    width: 100px;
+    left: 0;
+    bottom: 0;
+  }
+  .middle {
+    height: 50px;
+    width: 150px;
+    left: 100px;
+    bottom: 0;
+  }
+  .back {
+    height: 50px;
+    width: 75px;
+    left: 250px;
+    bottom: 0;
+  }
+  .roof {
+    height: 50px;
+    width: 148px;
+    left: 100px;
+    bottom: 51px;
+  }
+  .front-wheel {
+    left: 40px;
+  }
+  .back-wheel {
+    right: 30px;
+  }
+  .front-wheel, .back-wheel {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    bottom: -5px;
+    box-shadow: inset -5px -5px 5px green;
+  }
+}
+
+.car-object {
+  display: inline-block;
 }
