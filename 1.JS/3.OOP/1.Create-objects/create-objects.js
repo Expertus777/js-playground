@@ -77,4 +77,8 @@ function horn() {
     snd.play();
 }
 
+function test(param1, param2) {
+    return 'Hello!';
+}
+
 
